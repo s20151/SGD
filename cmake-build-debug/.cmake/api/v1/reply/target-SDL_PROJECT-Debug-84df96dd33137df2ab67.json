@@ -30,25 +30,25 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 12,
+				"line" : 15,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 10,
+				"line" : 13,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 14,
+				"line" : 17,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 9,
+				"line" : 12,
 				"parent" : 0
 			}
 		]
@@ -70,6 +70,10 @@
 				{
 					"backtrace" : 4,
 					"path" : "C:/Users/admin/Desktop/SDL/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/admin/Desktop/SDL2_image/include"
 				}
 			],
 			"language" : "CXX",
@@ -112,6 +116,11 @@
 				"role" : "libraryPath"
 			},
 			{
+				"backtrace" : 2,
+				"fragment" : "-LC:\\Users\\admin\\Desktop\\SDL2_image\\lib\\x64",
+				"role" : "libraryPath"
+			},
+			{
 				"backtrace" : 3,
 				"fragment" : "-lSDL2main",
 				"role" : "libraries"
@@ -119,6 +128,11 @@
 			{
 				"backtrace" : 3,
 				"fragment" : "-lSDL2",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lSDL2_IMAGE",
 				"role" : "libraries"
 			},
 			{
