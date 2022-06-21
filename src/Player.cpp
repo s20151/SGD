@@ -16,17 +16,18 @@ Player::Player(float p_x, float p_y, SDL_Texture* texture)
         : Entity{ p_x, p_y, texture} {
 }
 
-void Player::jump() {
+void Player::moveRight() {
     if(onGround){
         velocityY=-(1/50 * 200);
+        velocityX=1/50*100;
         onGround = false;
     }
 }
 
-void Player::moveRight() {
-    velocityX = 1/50*100;
-}
-
 void Player::moveLeft() {
-    velocityX = 1/50*-100;
+    if(onGround){
+        velocityY=-(1/50 * 200);
+        velocityX=1/50*-100;
+        onGround = false;
+    }
 }

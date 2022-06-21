@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <SDL_rect.h>
 #include <SDL_image.h>
 #include "../include/RenderWindow.hpp"
 #include "../include/Entity.hpp"
@@ -15,7 +16,7 @@ int main(int argc, char* args[]) {
 
     RenderWindow window("Skaczacy kloc", 800, 400);
 
-    SDL_Texture* grassTexture = window.loadTexture("data/floor.png");
+    SDL_Texture* grassTexture = window.loadTexture("data/grass.jpg");
     SDL_Texture* playerTexture = window.loadTexture("data/player.png");
     SDL_Texture* spikeTexture = window.loadTexture("data/spike.png");
     SDL_Texture* winTexture = window.loadTexture("data/win.png");
@@ -25,6 +26,7 @@ int main(int argc, char* args[]) {
 
     std::vector<Entity> floor_entities;
     Entity player = Entity(0,350,playerTexture);
+
     Entity win = Entity(250, 200, winTexture);
 
     for(int i = 0; i < 801; i+=25){
@@ -35,7 +37,6 @@ int main(int argc, char* args[]) {
             Entity(125, 350, spikeTexture),
             Entity(150, 350, spikeTexture),
             Entity(225, 350, spikeTexture),
-            Entity(275, 350, spikeTexture),
             Entity(350, 350, spikeTexture),
             Entity(375, 350, spikeTexture),
             Entity(450, 350, spikeTexture),
@@ -58,9 +59,11 @@ int main(int argc, char* args[]) {
             if (event.type == SDL_KEYDOWN){
                 if(event.key.keysym.sym == SDLK_RIGHT && player.getX() < 777){
                     player.setX(player.getX()+3);
+                    player.updateCurrentFrame(player.getX()-25, player.getY()-25);
                 }
                 if(event.key.keysym.sym == SDLK_LEFT && player.getX() > 0){
                     player.setX(player.getX()-3);
+                    player.updateCurrentFrame(player.getX()-25, player.getY()-25);
                 }
             }
         }
@@ -71,6 +74,10 @@ int main(int argc, char* args[]) {
             window.render(floor);
         }
         for (Entity& spike : spike_entities){
+            if(SDL_HasIntersection(player.getCurrentFrame(), spike.getCurrentFrame())){
+                player.setX(0);
+                player.setY(350);
+            }
             window.render(spike);
         }
         window.render(player);

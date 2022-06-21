@@ -7,7 +7,6 @@ class Player : public Entity {
 
 public:
     Player(float p_x, float p_y, SDL_Texture* texture);
-    void jump();
     void moveRight();
     void moveLeft();
 
