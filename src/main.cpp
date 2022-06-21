@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "../include/RenderWindow.hpp"
+#include "../include/Entity.hpp"
 #include <iostream>
 
 int main(int argc, char* args[]) {
@@ -15,12 +16,13 @@ int main(int argc, char* args[]) {
 
     SDL_Texture* grassTexture = window.loadTexture("data/floor.png");
 
+    Entity floor(0,270, grassTexture);
+
     bool gameRunning = true;
 
     SDL_Event event;
 
-    while (gameRunning)
-    {
+    while (gameRunning) {
         // Get our controls and events
         while (SDL_PollEvent(&event))
         {
@@ -28,7 +30,7 @@ int main(int argc, char* args[]) {
                 gameRunning = false;
         }
         window.clear();
-        window.render(grassTexture);
+        window.render(floor);
         window.display();
     }
 
