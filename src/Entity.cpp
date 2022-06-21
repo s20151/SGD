@@ -25,3 +25,10 @@ SDL_Texture* Entity::getTex() {
 SDL_Rect Entity::getCurrentFrame() {
     return currentFrame;
 }
+
+void Entity::setX(float p_x){
+    x=p_x;
+}
+void Entity::setY(float p_y){
+    y=p_y;
+}

@@ -35,22 +35,23 @@ void RenderWindow::clear() {
 }
 
 void RenderWindow::render(Entity& entity) {
-
-    SDL_Rect src;
-    src.x = entity.getCurrentFrame().x;
-    src.y = entity.getCurrentFrame().y;
-    src.w = entity.getCurrentFrame().w;
-    src.h = entity.getCurrentFrame().h;
-
-    SDL_Rect dst;
-    dst.x = entity.getX();
-    dst.y = entity.getY();
-    dst.w = entity.getCurrentFrame().w;
-    dst.h = entity.getCurrentFrame().h;
-
-    SDL_RenderCopy(renderer, entity.getTex(), &src, &dst);
+    render(entity.getX(), entity.getY(), entity.getTex());
 }
 
+//renderowanie tekstury w pozycji
+void RenderWindow::render(float p_x, float p_y, SDL_Texture* texture) {
+    SDL_Rect src;
+    src.x = 0;
+    src.y = 0;
+    SDL_QueryTexture(texture, NULL, NULL, &src.w, &src.h);
+
+    SDL_Rect dst;
+    dst.x = p_x;
+    dst.y = p_y;
+    dst.w = src.w/2;
+    dst.h = src.h/2;
+    SDL_RenderCopy(renderer, texture, &src, &dst);
+}
 void RenderWindow::display() {
     SDL_RenderPresent(renderer);
 }

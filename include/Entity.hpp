@@ -3,11 +3,14 @@
 #include <SDL_image.h>
 
 class Entity {
-
 public:
     Entity(float p_x, float p_y, SDL_Texture* texture);
     float getX();
     float getY();
+    int getWidth();
+    int getHeight();
+    void setX(float p_x);
+    void setY(float p_y);
     SDL_Texture* getTex();
     SDL_Rect getCurrentFrame();
 private:
