@@ -20,6 +20,7 @@ int main(int argc, char* args[]) {
     SDL_Texture* spikeTexture = window.loadTexture("data/spike.png");
     SDL_Texture* winTexture = window.loadTexture("data/win.png");
     SDL_Texture* skyTexture = window.loadTexture("data/sky.png");
+    SDL_Texture* castleTexture = window.loadTexture("data/castle.png");
 
 
     std::vector<Entity> floor_entities;
@@ -55,16 +56,17 @@ int main(int argc, char* args[]) {
             if (event.type == SDL_QUIT)
                 gameRunning = false;
             if (event.type == SDL_KEYDOWN){
-                if(event.key.keysym.sym == SDLK_RIGHT){
+                if(event.key.keysym.sym == SDLK_RIGHT && player.getX() < 777){
                     player.setX(player.getX()+3);
                 }
-                if(event.key.keysym.sym == SDLK_LEFT){
+                if(event.key.keysym.sym == SDLK_LEFT && player.getX() > 0){
                     player.setX(player.getX()-3);
                 }
             }
         }
         window.render(0,0, skyTexture);
-//        window.clear();
+        window.render(725,200, castleTexture);
+
         for (Entity& floor : floor_entities){
             window.render(floor);
         }
