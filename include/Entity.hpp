@@ -16,6 +16,7 @@ public:
     void setJumping(bool p_j);
     void setFalling(bool p_f);
     void setJumpspeed(int speed);
+    void update(int x);
 private:
     float x, y;
     bool jumping, falling;
