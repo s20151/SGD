@@ -1,9 +1,13 @@
 #include "../include/Entity.hpp"
-#include <SDL.h>
-#include <SDL_image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
+const int GRAVITY = 1;
+int jumpspeed = -20;
 
 Entity::Entity(float p_x, float p_y, SDL_Texture* texture)
-        :x(p_x), y(p_y), tex(texture) {
+        :x(p_x), y(p_y), tex(texture), jumping(false),
+        falling(true), jumpspeed(-20), yVel(0){
     currentFrame.x = x;
     currentFrame.y = y;
     currentFrame.w = 50;
@@ -35,3 +39,26 @@ void Entity::updateCurrentFrame(float p_x, float p_y) {
 const SDL_Rect * Entity::getCurrentFrame(){
     return &currentFrame;
 };
+
+void Entity::jump() {
+    if(jumping) {
+        falling = false;
+        jumpspeed += GRAVITY;
+        if(jumpspeed > 0) {
+            jumping = false;
+            falling = true;
+        }
+        yVel = jumpspeed;
+    }
+
+    if(falling && jumpspeed < 21) {
+        jumpspeed += GRAVITY;
+        yVel = jumpspeed;
+    }
+
+    if(jumpspeed >= 20) {
+        falling = false;
+        jumpspeed = -20;
+    }
+    setY(getY() + yVel);
+}
