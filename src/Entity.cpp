@@ -1,6 +1,7 @@
 #include "../include/Entity.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <iostream>
 
 const int GRAVITY = 1;
 
@@ -71,4 +72,21 @@ void Entity:: setJumping(bool p_j) {
 }
 void Entity::setJumpspeed(int speed) {
     jumpspeed = speed;
+}
+
+void Entity::update(int x){
+    switch (x) {
+        case 1:
+            setX(getX()+3);
+            break;
+        case 2:
+            setX(getY()-3);
+            break;
+        case 3:
+            do {
+                jump();
+                std::cout<<getY()<<std::endl;
+            }while(getY()!=351);
+            break;
+    }
 }
