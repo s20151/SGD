@@ -1,6 +1,6 @@
-#include <SDL.h>
-#include <SDL_rect.h>
-#include <SDL_image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_rect.h>
+#include <SDL2/SDL_image.h>
 #include "../include/RenderWindow.hpp"
 #include "../include/Entity.hpp"
 #include <iostream>
@@ -25,7 +25,7 @@ int main(int argc, char* args[]) {
 
 
     std::vector<Entity> floor_entities;
-    Entity player = Entity(0,350,playerTexture);
+    Entity player = Entity(0,351,playerTexture);
 
     Entity win = Entity(250, 200, winTexture);
 
@@ -65,12 +65,21 @@ int main(int argc, char* args[]) {
                     player.setX(player.getX()-3);
                     player.updateCurrentFrame(player.getX()-25, player.getY()-25);
                 }
+                if(event.key.keysym.sym == SDLK_SPACE){
+                    player.jump();
+                    player.updateCurrentFrame(player.getX()-25, player.getY()-25);
+                }
             }
         }
         window.render(0,0, skyTexture);
         window.render(725,200, castleTexture);
 
         for (Entity& floor : floor_entities){
+            if(SDL_HasIntersection(player.getCurrentFrame(), floor.getCurrentFrame())){
+                player.setJumping(false);
+                player.setFalling(true);
+                player.setJumpspeed(-20);
+            }
             window.render(floor);
         }
         for (Entity& spike : spike_entities){
