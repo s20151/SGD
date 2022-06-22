@@ -53,24 +53,24 @@ int main(int argc, char* args[]) {
 
     while (gameRunning) {
         // Get our controls and events
-        if (SDL_PollEvent(&event)) {
+        int choice = 0;
+        while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT)
                 gameRunning = false;
             if (event.type == SDL_KEYDOWN){
                 if(event.key.keysym.sym == SDLK_RIGHT && player.getX() < 777){
-                    player.setX(player.getX()+3);
-                    player.updateCurrentFrame(player.getX()-25, player.getY()-25);
+                    choice = 1;
                 }
                 if(event.key.keysym.sym == SDLK_LEFT && player.getX() > 0){
-                    player.setX(player.getX()-3);
-                    player.updateCurrentFrame(player.getX()-25, player.getY()-25);
+                    choice = 2;
                 }
                 if(event.key.keysym.sym == SDLK_SPACE){
-                    player.jump();
-                    player.updateCurrentFrame(player.getX()-25, player.getY()-25);
+                    choice = 3;
                 }
             }
         }
+        player.update(choice);
+        player.updateCurrentFrame(player.getX()-25, player.getY()-25);
         window.render(0,0, skyTexture);
         window.render(725,200, castleTexture);
 
@@ -79,13 +79,17 @@ int main(int argc, char* args[]) {
                 player.setJumping(false);
                 player.setFalling(true);
                 player.setJumpspeed(-20);
+                player.setY(351);
             }
             window.render(floor);
         }
         for (Entity& spike : spike_entities){
             if(SDL_HasIntersection(player.getCurrentFrame(), spike.getCurrentFrame())){
+                player.setJumping(false);
+                player.setFalling(true);
+                player.setJumpspeed(-20);
                 player.setX(0);
-                player.setY(350);
+                player.setY(351);
             }
             window.render(spike);
         }
