@@ -13,6 +13,9 @@ public:
     const SDL_Rect * getCurrentFrame();
     void updateCurrentFrame(float p_x, float p_y);
     void jump();
+    void setJumping(bool p_j);
+    void setFalling(bool p_f);
+    void setJumpspeed(int speed);
 private:
     float x, y;
     bool jumping, falling;
