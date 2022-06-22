@@ -3,7 +3,6 @@
 #include <SDL2/SDL_image.h>
 
 const int GRAVITY = 1;
-int jumpspeed = -20;
 
 Entity::Entity(float p_x, float p_y, SDL_Texture* texture)
         :x(p_x), y(p_y), tex(texture), jumping(false),
@@ -61,4 +60,15 @@ void Entity::jump() {
         jumpspeed = -20;
     }
     setY(getY() + yVel);
+}
+
+void Entity:: setFalling(bool p_f) {
+    falling = p_f;
+}
+
+void Entity:: setJumping(bool p_j) {
+    jumping = p_j;
+}
+void Entity::setJumpspeed(int speed) {
+    jumpspeed = speed;
 }
