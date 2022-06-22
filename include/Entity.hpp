@@ -1,6 +1,6 @@
 #pragma once
-#include <SDL.h>
-#include <SDL_image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 class Entity {
 public:
@@ -12,8 +12,12 @@ public:
     SDL_Texture* getTex();
     const SDL_Rect * getCurrentFrame();
     void updateCurrentFrame(float p_x, float p_y);
+    void jump();
 private:
     float x, y;
+    bool jumping, falling;
+    int jumpspeed;
+    int yVel;
     SDL_Rect currentFrame;
     SDL_Texture* tex;
 };
