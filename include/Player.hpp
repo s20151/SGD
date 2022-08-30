@@ -16,4 +16,5 @@ private:
 
     void Gravity();
 
+    void Jump();
 };

@@ -122,6 +122,7 @@ void graphics() {
     }
     window.display();
 }
+
 void game(){
     update();
     graphics();
