@@ -16,7 +16,7 @@ Player::Player(float p_x, float p_y, SDL_Texture* texture)
         : Entity{ p_x, p_y, texture} {
 }
 
-void Player::Gravity() {
+void Player::Gravity(float deltaTime) {
 
 }
 
@@ -30,11 +30,11 @@ void Player::update(float deltaTime, bool moveLeft, bool moveRight, bool jump,
     updateCurrentFrame(getX()-25, getY()-25);
 
     if(moveRight){
-
+        setX(getX() + velocityX * (double)deltaTime);
     }
 
     if(moveLeft){
-
+        setX(getX() - velocityX * (double)deltaTime);
     }
 
     if(jump){
@@ -48,7 +48,25 @@ void Player::update(float deltaTime, bool moveLeft, bool moveRight, bool jump,
     }
     for (Entity s: spikes) {
         if (SDL_HasIntersection(getCurrentFrame(), s.getCurrentFrame())){
-
+            setX(0);
+            setY(351);
         }
     }
 }
+
+void Player::setAccelerating(bool new_accelerating) {
+    jumping = new_accelerating;
+}
+
+bool Player::setJumping(bool new_jumping) {
+    jumping = new_jumping;
+}
+
+bool Player::getJumping() {
+    return jumping;
+}
+
+bool Player::getAccelerating() {
+    return accelerating;
+}
+

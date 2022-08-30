@@ -65,6 +65,7 @@ SDL_Event event;
 Uint64 currentTick = SDL_GetPerformanceCounter();
 Uint64 lastTick = 0;
 double deltaTime = 0;
+Uint64 jumpTick;
 
 bool moveRight = false;
 bool moveLeft = false;
@@ -76,7 +77,7 @@ bool playerWon = false;
 void update(){
     lastTick = currentTick;
     currentTick = SDL_GetPerformanceCounter();
-    deltaTime = (float)((currentTick - lastTick)*1000 / (float)SDL_GetPerformanceFrequency() );
+    deltaTime = (float)((currentTick - lastTick)*1000 / (float)SDL_GetPerformanceFrequency());
 
     jump = false;
     moveRight = false;
@@ -96,7 +97,7 @@ void update(){
 
                 } else if(event.key.keysym.sym == SDLK_SPACE){
                     jump = true;
-
+                    jumpTick = SDL_GetPerformanceCounter();
                 }
                 break;
         }
@@ -129,8 +130,23 @@ void game(){
 }
 
 int main(int argc, char* args[]) {
+
+    double first;
+    double last = 0;
+
         while (gameRunning){
+
             game();
+
+            first = SDL_GetTicks();
+
+            if (first - last < 6.9) {
+                SDL_Delay(6.9 - (first - last));
+            }
+
+            last = first;
+
+            std::cout<<first - last<<std::endl;
         }
     window.cleanUp();
     SDL_Quit();
