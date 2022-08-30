@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 #include "../include/RenderWindow.hpp"
 #include "../include/Entity.hpp"
+#include "../include/Player.hpp"
 #include <iostream>
 #include <vector>
 
@@ -55,7 +56,7 @@ std::vector<Entity> loadSikes() {
 
 std::vector<Entity> floor = loadFloor();
 std::vector<Entity> spikes = loadSikes();
-Entity player = Entity(0,351,playerTexture);
+Player player = Player(0,351,playerTexture);
 Entity win = Entity(250, 200, winTexture);
 
 bool gameRunning = true;
@@ -75,11 +76,11 @@ bool playerWon = false;
 void update(){
     lastTick = currentTick;
     currentTick = SDL_GetPerformanceCounter();
-    deltaTime = (double)((currentTick - lastTick)*1000 / (double)SDL_GetPerformanceFrequency() );
+    deltaTime = (float)((currentTick - lastTick)*1000 / (float)SDL_GetPerformanceFrequency() );
 
-//    jump = false;
-//    moveRight = false;
-//    moveLeft = false;
+    jump = false;
+    moveRight = false;
+    moveLeft = false;
 
     while (SDL_PollEvent(&event)) {
         switch(event.type) {
@@ -89,10 +90,13 @@ void update(){
             case SDL_KEYDOWN:
                 if (event.key.keysym.sym == SDLK_RIGHT) {
                     moveRight = true;
+
                 } else if(event.key.keysym.sym == SDLK_LEFT){
                     moveLeft = true;
+
                 } else if(event.key.keysym.sym == SDLK_SPACE){
                     jump = true;
+
                 }
                 break;
         }

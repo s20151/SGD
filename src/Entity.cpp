@@ -45,16 +45,4 @@ const SDL_Rect * Entity::getCurrentFrame(){
 void Entity::update(double deltaTime, bool moveLeft, bool moveRight, bool jump,
                     std::vector<Entity> floor,std::vector<Entity> spikes) {
 
-    for (Entity f: floor) {
-
-    }
-    for (Entity s: spikes) {
-        if (getX() + 25 == s.getX() || getY() + 25 > s.getY()) {
-            setX(0);
-            setY(351);
-            jump = false;
-            moveLeft = false;
-            moveRight = false;
-        }
-    }
 }

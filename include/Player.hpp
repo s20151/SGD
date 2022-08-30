@@ -7,13 +7,13 @@ class Player : public Entity {
 
 public:
     Player(float p_x, float p_y, SDL_Texture* texture);
-    void moveRight();
-    void moveLeft();
+    void update(float deltaTime, bool moveLeft, bool moveRight, bool jump, std::vector<Entity> floor,
+                std::vector<Entity> spikes);
 
 private:
     float velocityX, velocityY;
     bool onGround;
 
-    void update(double deltaTime, bool moveLeft, bool moveRight, bool jump, std::vector<Entity> floor,
-                std::vector<Entity> spikes);
+    void Gravity();
+
 };

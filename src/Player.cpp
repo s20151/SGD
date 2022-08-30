@@ -16,23 +16,55 @@ Player::Player(float p_x, float p_y, SDL_Texture* texture)
         : Entity{ p_x, p_y, texture} {
 }
 
-
-void Player::moveRight() {
-    if(onGround){
-        velocityY=-(1/50 * 200);
-        velocityX=1/50*100;
-        onGround = false;
-    }
+void Player::Gravity() {
+//    double tmp_fdt = (getDt() - getPdt())/1000;
+//    if (getJumping()){
+//        double tmp_dest = getDest().y;
+//        double velocity = gravity * tmp_fdt + 20;
+//        double y = getDest().y - 22 * tmp_fdt + 4.5 * tmp_fdt * tmp_fdt * gravity;
+//        setDest(40, y, 42, 60);
+//        if (tmp_dest < y) {
+//            setFdt();
+//            setPdt();
+//            jumping = false;
+//        }
+//    }
+//    else
+//    {
+//        double velocity = gravity * tmp_fdt;
+//        int y = getDest().y + gravity * tmp_fdt * tmp_fdt + velocity;
+//        setDest(40, y, 42, 60);
+//    }
 }
 
-void Player::moveLeft() {
-    if(onGround){
-        velocityY=-(1/50 * 200);
-        velocityX=1/50*-100;
-        onGround = false;
-    }
-}
-void Player::update(double deltaTime, bool moveLeft, bool moveRight, bool jump,
+void Player::update(float deltaTime, bool moveLeft, bool moveRight, bool jump,
                     std::vector<Entity> floor,std::vector<Entity> spikes) {
+    updateCurrentFrame(getX(), getY());
 
+    if(moveRight){
+        setX(getX() + 1);
+    }
+
+    if(moveLeft){
+
+    }
+
+    if(jump){
+
+    }
+
+    for (Entity f: floor) {
+        if(SDL_HasIntersection(getCurrentFrame(), f.getCurrentFrame())){
+
+        }
+    }
+    for (Entity s: spikes) {
+        if (SDL_HasIntersection(getCurrentFrame(), s.getCurrentFrame())){
+            setX(0);
+            setY(351);
+            jump = false;
+            moveLeft = false;
+            moveRight = false;
+        }
+    }
 }
