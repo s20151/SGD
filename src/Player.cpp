@@ -16,6 +16,7 @@ Player::Player(float p_x, float p_y, SDL_Texture* texture)
         : Entity{ p_x, p_y, texture} {
 }
 
+
 void Player::moveRight() {
     if(onGround){
         velocityY=-(1/50 * 200);
@@ -30,4 +31,8 @@ void Player::moveLeft() {
         velocityX=1/50*-100;
         onGround = false;
     }
+}
+void Player::update(double deltaTime, bool moveLeft, bool moveRight, bool jump,
+                    std::vector<Entity> floor,std::vector<Entity> spikes) {
+
 }

@@ -1,7 +1,8 @@
 #include "../include/Entity.hpp"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <SDL.h>
+#include <SDL_image.h>
 #include <iostream>
+#include <vector>
 
 const int GRAVITY = 1;
 
@@ -40,53 +41,20 @@ const SDL_Rect * Entity::getCurrentFrame(){
     return &currentFrame;
 };
 
-void Entity::jump() {
-    if(jumping) {
-        falling = false;
-        jumpspeed += GRAVITY;
-        if(jumpspeed > 0) {
-            jumping = false;
-            falling = true;
+
+void Entity::update(double deltaTime, bool moveLeft, bool moveRight, bool jump,
+                    std::vector<Entity> floor,std::vector<Entity> spikes) {
+
+    for (Entity f: floor) {
+
+    }
+    for (Entity s: spikes) {
+        if (getX() + 25 == s.getX() || getY() + 25 > s.getY()) {
+            setX(0);
+            setY(351);
+            jump = false;
+            moveLeft = false;
+            moveRight = false;
         }
-        yVel = jumpspeed;
-    }
-
-    if(falling && jumpspeed < 21) {
-        jumpspeed += GRAVITY;
-        yVel = jumpspeed;
-    }
-
-    if(jumpspeed >= 20) {
-        falling = false;
-        jumpspeed = -20;
-    }
-    setY(getY() + yVel);
-}
-
-void Entity:: setFalling(bool p_f) {
-    falling = p_f;
-}
-
-void Entity:: setJumping(bool p_j) {
-    jumping = p_j;
-}
-void Entity::setJumpspeed(int speed) {
-    jumpspeed = speed;
-}
-
-void Entity::update(int x){
-    switch (x) {
-        case 1:
-            setX(getX()+3);
-            break;
-        case 2:
-            setX(getY()-3);
-            break;
-        case 3:
-            do {
-                jump();
-                std::cout<<getY()<<std::endl;
-            }while(getY()!=351);
-            break;
     }
 }

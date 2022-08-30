@@ -77,6 +77,13 @@ build CMakeFiles/SDL_PROJECT.dir/src/Player.cpp.obj: CXX_COMPILER__SDL_PROJECT_D
   OBJECT_DIR = CMakeFiles\SDL_PROJECT.dir
   OBJECT_FILE_DIR = CMakeFiles\SDL_PROJECT.dir\src
 
+build CMakeFiles/SDL_PROJECT.dir/src/Tile.cpp.obj: CXX_COMPILER__SDL_PROJECT_Debug C$:/Users/admin/CLionProjects/SDL_PROJECT/src/Tile.cpp || cmake_object_order_depends_target_SDL_PROJECT
+  DEP_FILE = CMakeFiles\SDL_PROJECT.dir\src\Tile.cpp.obj.d
+  FLAGS = -g -std=gnu++20
+  INCLUDES = -IC:/Users/admin/Desktop/SDL/include -IC:/Users/admin/Desktop/SDL2_image/include
+  OBJECT_DIR = CMakeFiles\SDL_PROJECT.dir
+  OBJECT_FILE_DIR = CMakeFiles\SDL_PROJECT.dir\src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target SDL_PROJECT
@@ -85,7 +92,7 @@ build CMakeFiles/SDL_PROJECT.dir/src/Player.cpp.obj: CXX_COMPILER__SDL_PROJECT_D
 #############################################
 # Link the executable SDL_PROJECT.exe
 
-build SDL_PROJECT.exe: CXX_EXECUTABLE_LINKER__SDL_PROJECT_Debug CMakeFiles/SDL_PROJECT.dir/src/main.cpp.obj CMakeFiles/SDL_PROJECT.dir/src/RenderWindow.cpp.obj CMakeFiles/SDL_PROJECT.dir/src/Entity.cpp.obj CMakeFiles/SDL_PROJECT.dir/src/Player.cpp.obj
+build SDL_PROJECT.exe: CXX_EXECUTABLE_LINKER__SDL_PROJECT_Debug CMakeFiles/SDL_PROJECT.dir/src/main.cpp.obj CMakeFiles/SDL_PROJECT.dir/src/RenderWindow.cpp.obj CMakeFiles/SDL_PROJECT.dir/src/Entity.cpp.obj CMakeFiles/SDL_PROJECT.dir/src/Player.cpp.obj CMakeFiles/SDL_PROJECT.dir/src/Tile.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lSDL2main  -lSDL2  -lSDL2_IMAGE  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/admin/CLionProjects/SDL_PROJECT/DIR   -LC:/Users/admin/Desktop/SDL/lib/x64   -LC:/Users/admin/Desktop/SDL2_image/lib/x64

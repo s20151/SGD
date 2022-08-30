@@ -13,4 +13,7 @@ public:
 private:
     float velocityX, velocityY;
     bool onGround;
+
+    void update(double deltaTime, bool moveLeft, bool moveRight, bool jump, std::vector<Entity> floor,
+                std::vector<Entity> spikes);
 };

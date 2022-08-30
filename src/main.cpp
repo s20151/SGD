@@ -1,37 +1,41 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_rect.h>
-#include <SDL2/SDL_image.h>
+#include <SDL.h>
+#include <SDL_rect.h>
+#include <SDL_image.h>
 #include "../include/RenderWindow.hpp"
 #include "../include/Entity.hpp"
 #include <iostream>
 #include <vector>
 
-int main(int argc, char* args[]) {
 
+bool init(){
     if (SDL_Init(SDL_INIT_VIDEO) > 0)
         std::cout << "HEY.. SDL_Init HAS FAILED. SDL_ERROR: " << SDL_GetError() << std::endl;
 
     if (!(IMG_Init(IMG_INIT_PNG)))
         std::cout << "IMG_init has failed. Error: " << SDL_GetError() << std::endl;
+    return true;
+}
 
-    RenderWindow window("Skaczacy kloc", 800, 400);
+bool SDLinit = init();
 
-    SDL_Texture* grassTexture = window.loadTexture("data/grass.jpg");
-    SDL_Texture* playerTexture = window.loadTexture("data/player.png");
-    SDL_Texture* spikeTexture = window.loadTexture("data/spike.png");
-    SDL_Texture* winTexture = window.loadTexture("data/win.png");
-    SDL_Texture* skyTexture = window.loadTexture("data/sky.png");
-    SDL_Texture* castleTexture = window.loadTexture("data/castle.png");
+RenderWindow window("Skaczacy kloc", 800, 400);
 
+SDL_Texture* grassTexture = window.loadTexture("data/grass.jpg");
+SDL_Texture* playerTexture = window.loadTexture("data/player.png");
+SDL_Texture* spikeTexture = window.loadTexture("data/spike.png");
+SDL_Texture* winTexture = window.loadTexture("data/win.png");
+SDL_Texture* skyTexture = window.loadTexture("data/sky.png");
+SDL_Texture* castleTexture = window.loadTexture("data/castle.png");
 
-    std::vector<Entity> floor_entities;
-    Entity player = Entity(0,351,playerTexture);
-
-    Entity win = Entity(250, 200, winTexture);
-
+std::vector<Entity> loadFloor(){
+    std::vector<Entity> floor_entities = {};
     for(int i = 0; i < 801; i+=25){
         floor_entities.push_back(Entity(i,375, grassTexture));
     }
+    return floor_entities;
+}
+
+std::vector<Entity> loadSikes() {
     std::vector<Entity> spike_entities ={
             Entity(100, 350, spikeTexture),
             Entity(125, 350, spikeTexture),
@@ -46,60 +50,83 @@ int main(int argc, char* args[]) {
             Entity(650, 350, spikeTexture),
             Entity(675, 350, spikeTexture)
     };
+    return spike_entities;
+}
 
-    bool gameRunning = true;
+std::vector<Entity> floor = loadFloor();
+std::vector<Entity> spikes = loadSikes();
+Entity player = Entity(0,351,playerTexture);
+Entity win = Entity(250, 200, winTexture);
 
-    SDL_Event event;
+bool gameRunning = true;
+SDL_Event event;
 
-    while (gameRunning) {
-        // Get our controls and events
-        int choice = 0;
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT)
+Uint64 currentTick = SDL_GetPerformanceCounter();
+Uint64 lastTick = 0;
+double deltaTime = 0;
+
+bool moveRight = false;
+bool moveLeft = false;
+bool jump = false;
+
+
+bool playerWon = false;
+
+void update(){
+    lastTick = currentTick;
+    currentTick = SDL_GetPerformanceCounter();
+    deltaTime = (double)((currentTick - lastTick)*1000 / (double)SDL_GetPerformanceFrequency() );
+
+//    jump = false;
+//    moveRight = false;
+//    moveLeft = false;
+
+    while (SDL_PollEvent(&event)) {
+        switch(event.type) {
+            case SDL_QUIT:
                 gameRunning = false;
-            if (event.type == SDL_KEYDOWN){
-                if(event.key.keysym.sym == SDLK_RIGHT && player.getX() < 777){
-                    choice = 1;
+                break;
+            case SDL_KEYDOWN:
+                if (event.key.keysym.sym == SDLK_RIGHT) {
+                    moveRight = true;
+                } else if(event.key.keysym.sym == SDLK_LEFT){
+                    moveLeft = true;
+                } else if(event.key.keysym.sym == SDLK_SPACE){
+                    jump = true;
                 }
-                if(event.key.keysym.sym == SDLK_LEFT && player.getX() > 0){
-                    choice = 2;
-                }
-                if(event.key.keysym.sym == SDLK_SPACE){
-                    choice = 3;
-                }
-            }
+                break;
         }
-        player.update(choice);
-        player.updateCurrentFrame(player.getX()-25, player.getY()-25);
-        window.render(0,0, skyTexture);
-        window.render(725,200, castleTexture);
-
-        for (Entity& floor : floor_entities){
-            if(SDL_HasIntersection(player.getCurrentFrame(), floor.getCurrentFrame())){
-                player.setJumping(false);
-                player.setFalling(true);
-                player.setJumpspeed(-20);
-                player.setY(351);
-            }
-            window.render(floor);
-        }
-        for (Entity& spike : spike_entities){
-            if(SDL_HasIntersection(player.getCurrentFrame(), spike.getCurrentFrame())){
-                player.setJumping(false);
-                player.setFalling(true);
-                player.setJumpspeed(-20);
-                player.setX(0);
-                player.setY(351);
-            }
-            window.render(spike);
-        }
-        window.render(player);
-        if(player.getX() > 730){
-            window.render(win);
-        }
-        window.display();
     }
+    if(!playerWon){
+        player.update(deltaTime, moveLeft, moveRight, jump, floor, spikes);
+    }
+}
 
+void graphics() {
+    window.clear();
+    window.render(0,0, skyTexture);
+    window.render(725,200, castleTexture);
+    window.render(player);
+    for(Entity f : floor){
+        window.render(f);
+    }
+    for(Entity s : spikes){
+        window.render(s);
+    }
+    if(playerWon){
+        window.render(win);
+    }
+    window.display();
+}
+void game(){
+    update();
+    graphics();
+}
+
+int main(int argc, char* args[]) {
+        while (gameRunning){
+            game();
+        }
     window.cleanUp();
     SDL_Quit();
 

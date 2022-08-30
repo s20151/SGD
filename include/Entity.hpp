@@ -1,6 +1,7 @@
 #pragma once
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <SDL.h>
+#include <SDL_image.h>
+#include <vector>
 
 class Entity {
 public:
@@ -12,11 +13,11 @@ public:
     SDL_Texture* getTex();
     const SDL_Rect * getCurrentFrame();
     void updateCurrentFrame(float p_x, float p_y);
-    void jump();
-    void setJumping(bool p_j);
-    void setFalling(bool p_f);
-    void setJumpspeed(int speed);
     void update(int x);
+
+    void update(double deltaTime, bool moveLeft, bool moveRight, bool jump, std::vector<Entity> floor,
+                std::vector<Entity> spikes);
+
 private:
     float x, y;
     bool jumping, falling;
@@ -24,4 +25,6 @@ private:
     int yVel;
     SDL_Rect currentFrame;
     SDL_Texture* tex;
+
+    void setVelocity(float x, float y);
 };
