@@ -140,15 +140,12 @@ int main(int argc, char* args[]) {
         while (gameRunning){
 
             game();
-
             first = SDL_GetTicks();
-
-            if (first - last < 6.9) {
-                SDL_Delay(6.9 - (first - last));
+            if (first - last < 16.7)
+            {
+                SDL_Delay(16.7 - (first - last));
             }
-
             last = first;
-
         }
     window.cleanUp();
     SDL_Quit();

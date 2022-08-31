@@ -10,8 +10,8 @@ Entity::Entity(double p_x, double p_y, SDL_Texture* texture)
         : tex(texture) {
     currentFrame.x = p_x;
     currentFrame.y = p_y;
-    currentFrame.w = 50;
-    currentFrame.h = 50;
+    currentFrame.w = 25;
+    currentFrame.h = 25;
 }
 
 SDL_Texture* Entity::getTex() {
