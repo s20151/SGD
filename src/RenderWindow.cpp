@@ -39,7 +39,7 @@ void RenderWindow::render(Entity& entity) {
 }
 
 //renderowanie tekstury w pozycji
-void RenderWindow::render(float p_x, float p_y, SDL_Texture* texture) {
+void RenderWindow::render(double p_x, double p_y, SDL_Texture* texture) {
     SDL_Rect src;
     src.x = 0;
     src.y = 0;

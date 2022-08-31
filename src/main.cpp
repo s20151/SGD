@@ -75,9 +75,12 @@ bool jump = false;
 bool playerWon = false;
 
 void update(){
+    std::cout<<player.getCurrentFrame()->x;
+    std::cout<< " ";
+    std::cout<<player.getCurrentFrame()->y<<std::endl;
     lastTick = currentTick;
     currentTick = SDL_GetPerformanceCounter();
-    deltaTime = (float)((currentTick - lastTick)*1000 / (float)SDL_GetPerformanceFrequency());
+    deltaTime = (double)((currentTick - lastTick)*1000 / (double)SDL_GetPerformanceFrequency());
 
     jump = false;
     moveRight = false;
@@ -97,7 +100,7 @@ void update(){
 
                 } else if(event.key.keysym.sym == SDLK_SPACE){
                     jump = true;
-                    jumpTick = SDL_GetPerformanceCounter();
+                    player.GetJumpTime();
                 }
                 break;
         }
@@ -146,7 +149,6 @@ int main(int argc, char* args[]) {
 
             last = first;
 
-            std::cout<<first - last<<std::endl;
         }
     window.cleanUp();
     SDL_Quit();

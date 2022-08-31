@@ -5,10 +5,10 @@
 
 class Entity {
 public:
-    Entity(float p_x, float p_y, SDL_Texture* texture);
+    Entity(double p_x, double p_y, SDL_Texture* texture);
     SDL_Texture* getTex();
     const SDL_Rect * getCurrentFrame();
-    void updateCurrentFrame(float p_x, float p_y);
+    void updateCurrentFrame(double p_x, double p_y);
 
 private:
     SDL_Rect currentFrame;

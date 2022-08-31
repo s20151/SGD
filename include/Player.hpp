@@ -6,22 +6,25 @@
 class Player : public Entity {
 
 public:
-    Player(float p_x, float p_y, SDL_Texture* texture);
-    void update(float deltaTime, bool moveLeft, bool moveRight, bool jump, std::vector<Entity> floor,
+    Player(double p_x, double p_y, SDL_Texture* texture);
+    void update(double deltaTime, bool moveLeft, bool moveRight, bool jump, std::vector<Entity> floor,
                 std::vector<Entity> spikes);
+    bool getJumping();
+    bool getStanding();
+    void GetJumpTime();
+    void Jump();
+    void Gravity();
 
 private:
     bool jumping = false;
-    bool accelerating = false;
-    void Gravity();
-    void Jump();
-    float xVel, yVel;
-
-    bool getJumping();
-    bool getAccelerating();
-
+    bool standing = true;
+    double xVel, yVel;
+    double accelerator1 = 0;
+    double accelerator2 = 0;
+    double lastJump = 0;
+    double jumpTimer;
+    double jumpHeight = -20;
     void setAccelerating(bool new_accelerating);
     bool setJumping(bool new_jumping);
 
-    void Gravity(float deltaTime);
 };
