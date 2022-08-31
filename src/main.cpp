@@ -38,18 +38,18 @@ std::vector<Entity> loadFloor(){
 
 std::vector<Entity> loadSikes() {
     std::vector<Entity> spike_entities ={
-            Entity(100, 350, spikeTexture),
-            Entity(125, 350, spikeTexture),
-            Entity(150, 350, spikeTexture),
-            Entity(225, 350, spikeTexture),
-            Entity(350, 350, spikeTexture),
-            Entity(375, 350, spikeTexture),
-            Entity(450, 350, spikeTexture),
-            Entity(525, 350, spikeTexture),
-            Entity(550, 350, spikeTexture),
-            Entity(575, 350, spikeTexture),
-            Entity(650, 350, spikeTexture),
-            Entity(675, 350, spikeTexture)
+//            Entity(100, 350, spikeTexture),
+//            Entity(125, 350, spikeTexture),
+//            Entity(150, 350, spikeTexture),
+//            Entity(225, 350, spikeTexture),
+//            Entity(350, 350, spikeTexture),
+//            Entity(375, 350, spikeTexture),
+//            Entity(450, 350, spikeTexture),
+//            Entity(525, 350, spikeTexture),
+//            Entity(550, 350, spikeTexture),
+//            Entity(575, 350, spikeTexture),
+//            Entity(650, 350, spikeTexture),
+//            Entity(675, 350, spikeTexture)
     };
     return spike_entities;
 }
@@ -134,18 +134,18 @@ void game(){
 
 int main(int argc, char* args[]) {
 
-    double first;
-    double last = 0;
+    const int FPS = 60;
+    const int frameDelay = 1000/ FPS;
+    Uint32 frameStart;
+    int frameTime;
 
         while (gameRunning){
 
+            frameStart = SDL_GetTicks();
             game();
-            first = SDL_GetTicks();
-            if (first - last < 16.7)
-            {
-                SDL_Delay(16.7 - (first - last));
-            }
-            last = first;
+            frameTime = SDL_GetTicks() - frameStart;
+
+            if(frameDelay > frameTime) SDL_Delay(frameDelay - frameTime);
         }
     window.cleanUp();
     SDL_Quit();

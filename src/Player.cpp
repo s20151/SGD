@@ -8,7 +8,7 @@
 #include "../include/Player.hpp"
 #include "../include/Entity.hpp"
 
-const double GRAVITY = 2.1;
+const double GRAVITY = 2.2;
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 400;
 
@@ -76,8 +76,8 @@ void Player::GetJumpTime() {
 
 void Player::Gravity() {
     if (getJumping()) {
-        accelerator1 = accelerator1 + 0.005;
-        accelerator2 = accelerator2 + 0.003;
+        accelerator1 = accelerator1 + 0.05;
+        accelerator2 = accelerator2 + 0.03;
         jumpHeight = jumpHeight + GRAVITY;
         updateCurrentFrame(getCurrentFrame()->x , getCurrentFrame()->y + GRAVITY + accelerator1 + accelerator2 + jumpHeight);
         if (jumpHeight > 0) {
@@ -86,8 +86,8 @@ void Player::Gravity() {
         }
     }
     else {
-        accelerator1 = accelerator1 + 0.005;
-        accelerator2 = accelerator2 + 0.003;
+        accelerator1 = accelerator1 + 0.05;
+        accelerator2 = accelerator2 + 0.05;
         updateCurrentFrame(getCurrentFrame()->x , getCurrentFrame()->y + GRAVITY + accelerator1 + accelerator2);
     }
 }
