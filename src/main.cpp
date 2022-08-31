@@ -2,7 +2,6 @@
 #include <SDL_rect.h>
 #include <SDL_image.h>
 #include "../include/RenderWindow.hpp"
-#include "../include/Entity.hpp"
 #include "../include/Player.hpp"
 #include <iostream>
 #include <vector>

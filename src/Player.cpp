@@ -4,6 +4,7 @@
 #include <cmath>
 #include <vector>
 #include <string>
+#include <iostream>
 
 #include "../include/Player.hpp"
 #include "../include/Entity.hpp"
@@ -34,7 +35,9 @@ void Player::update(double deltaTime, bool moveLeft, bool moveRight, bool jump,
         Jump();
     }
     else{
+        standing = true;
         Gravity();
+        if(getCurrentFrame()->y > 351) { updateCurrentFrame(getCurrentFrame()->x, 351); }
     }
     // after touching floor disable gravity/jump
     for (Entity f: floor) {
@@ -76,8 +79,8 @@ void Player::GetJumpTime() {
 
 void Player::Gravity() {
     if (getJumping()) {
-        accelerator1 = accelerator1 + 0.05;
-        accelerator2 = accelerator2 + 0.03;
+        accelerator1 = accelerator1 + 0.03;
+        accelerator2 = accelerator2 + 0.1;
         jumpHeight = jumpHeight + GRAVITY;
         updateCurrentFrame(getCurrentFrame()->x , getCurrentFrame()->y + GRAVITY + accelerator1 + accelerator2 + jumpHeight);
         if (jumpHeight > 0) {
@@ -86,14 +89,14 @@ void Player::Gravity() {
         }
     }
     else {
-        accelerator1 = accelerator1 + 0.05;
-        accelerator2 = accelerator2 + 0.05;
+        accelerator1 = accelerator1 + 0.09;
+        accelerator2 = accelerator2 + 0.09;
         updateCurrentFrame(getCurrentFrame()->x , getCurrentFrame()->y + GRAVITY + accelerator1 + accelerator2);
     }
 }
 
 void Player::Jump() {
-    if (jumpTimer - lastJump > 360) {
+    if (jumpTimer - lastJump > 60) {
         accelerator1 = 0;
         accelerator2 = 0;
         jumping = true;
