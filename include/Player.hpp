@@ -11,12 +11,11 @@ public:
                 std::vector<Entity> spikes);
 
 private:
-    float velocityX = 1.3;
-    float velocityY = 1.3;
     bool jumping = false;
     bool accelerating = false;
     void Gravity();
     void Jump();
+    float xVel, yVel;
 
     bool getJumping();
     bool getAccelerating();

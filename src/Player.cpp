@@ -13,7 +13,7 @@ const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 400;
 
 Player::Player(float p_x, float p_y, SDL_Texture* texture)
-        : Entity{ p_x, p_y, texture} {
+        : Entity{ p_x, p_y, texture}, xVel(0), yVel(0) {
 }
 
 void Player::Gravity(float deltaTime) {
@@ -27,29 +27,31 @@ void Player:: Jump(){
 void Player::update(float deltaTime, bool moveLeft, bool moveRight, bool jump,
                     std::vector<Entity> floor,std::vector<Entity> spikes) {
 
-    updateCurrentFrame(getX()-25, getY()-25);
-
     if(moveRight){
-        setX(getX() + velocityX * (double)deltaTime);
+        updateCurrentFrame((getCurrentFrame()->x + xVel * (double)deltaTime), getCurrentFrame()->x);
     }
 
     if(moveLeft){
-        setX(getX() - velocityX * (double)deltaTime);
+        updateCurrentFrame((getCurrentFrame()->y + yVel * (double)deltaTime), getCurrentFrame()->y);
     }
 
-    if(jump){
+    if(jump && !jumping){
+        jumping = true;
 
     }
-
+    // disable gravity/jump
     for (Entity f: floor) {
         if(SDL_HasIntersection(getCurrentFrame(), f.getCurrentFrame())){
-
+            jumping = false;
         }
     }
+    // kill and return to spawn
     for (Entity s: spikes) {
         if (SDL_HasIntersection(getCurrentFrame(), s.getCurrentFrame())){
-            setX(0);
-            setY(351);
+
+            updateCurrentFrame(0,351);
+
+            jumping = false;
         }
     }
 }
