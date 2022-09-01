@@ -96,10 +96,10 @@ void Event() {
 
 
 void Update() {
-    std::cout << player.getCurrentFrame()->x;
+    std::cout << player.getHitbox()->x;
     std::cout << " ";
-    std::cout << player.getCurrentFrame()->y << std::endl;
-    if (player.getCurrentFrame()->x > 725) playerWon = true;
+    std::cout << player.getHitbox()->y << std::endl;
+    if (player.getHitbox()->x > 725) playerWon = true;
     if (!playerWon) {
         player.update(deltaTime, moveLeft, moveRight, jump, floor, spikes);
     }

@@ -1,28 +1,23 @@
 #include "../include/Entity.hpp"
 #include <SDL.h>
-#include <SDL_image.h>
-#include <iostream>
-#include <vector>
-
-const int GRAVITY = 0.1;
 
 Entity::Entity(double p_x, double p_y, SDL_Texture* texture)
         : tex(texture) {
-    currentFrame.x = p_x;
-    currentFrame.y = p_y;
-    currentFrame.w = 25;
-    currentFrame.h = 25;
+    hitbox.x = p_x;
+    hitbox.y = p_y;
+    hitbox.w = 25;
+    hitbox.h = 25;
 }
 
 SDL_Texture* Entity::getTex() {
     return tex;
 }
 
-void Entity::updateCurrentFrame(double p_x, double p_y) {
-    currentFrame.x = p_x;
-    currentFrame.y = p_y;
+void Entity::updateHitboxPos(double p_x, double p_y) {
+    hitbox.x = p_x;
+    hitbox.y = p_y;
 }
 
-const SDL_Rect * Entity::getCurrentFrame(){
-    return &currentFrame;
+const SDL_Rect * Entity::getHitbox() {
+    return &hitbox;
 };

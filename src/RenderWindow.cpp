@@ -35,7 +35,7 @@ void RenderWindow::clear() {
 }
 
 void RenderWindow::render(Entity& entity) {
-    render(entity.getCurrentFrame()->x, entity.getCurrentFrame()->y, entity.getTex());
+    render(entity.getHitbox()->x, entity.getHitbox()->y, entity.getTex());
 }
 
 //renderowanie tekstury w pozycji

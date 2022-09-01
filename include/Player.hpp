@@ -11,7 +11,7 @@ public:
                 std::vector<Entity> spikes);
     bool getJumping();
     bool getStanding();
-    void GetJumpTime();
+    void SetJumpTime();
     void Jump();
     void Gravity();
 
