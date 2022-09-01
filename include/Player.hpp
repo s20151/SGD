@@ -18,7 +18,6 @@ public:
 private:
     bool jumping = false;
     bool standing = true;
-    double xVel, yVel;
     double accelerator1 = 0;
     double accelerator2 = 0;
     double lastJump = 0;
