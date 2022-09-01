@@ -57,7 +57,7 @@ void Player::updateMovement(double deltaTime, bool moveLeft, bool moveRight, boo
         if (SDL_HasIntersection(getHitbox(), s.getHitbox())) {
 
             updateHitboxPos(0, 351);
-
+            deathCounter++;
             jumping = false;
         }
     }
@@ -93,7 +93,7 @@ void Player::Gravity() {
 //        accelerator1 = accelerator1 + 0.03;
 //        accelerator2 = accelerator2 + 0.1;
 //        jumpHeight = jumpHeight + GRAVITY;
-        newY = getHitbox()->y + jumpHeight * gravityTimer + 5 * pow(gravityTimer, 2) * GRAVITY - 3;
+        newY = getHitbox()->y + jumpHeight * gravityTimer + 5 * pow(gravityTimer, 2) * GRAVITY - 4;
         updateHitboxPos(tmp_x,  newY);
         if (tmp_dest < newY) {
             jumping = false;

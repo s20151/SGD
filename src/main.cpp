@@ -32,6 +32,9 @@ std::vector<Entity> loadFloor() {
     for (int i = 0; i < 801; i += 25) {
         floor_entities.push_back(Entity(i, 375, grassTexture));
     }
+    floor_entities.push_back(Entity(275, 350, grassTexture));
+    floor_entities.push_back(Entity(300, 350, grassTexture));
+    floor_entities.push_back(Entity(325, 350, grassTexture));
     return floor_entities;
 }
 
@@ -48,7 +51,9 @@ std::vector<Entity> loadSikes() {
             Entity(550, 350, spikeTexture),
             Entity(575, 350, spikeTexture),
             Entity(650, 350, spikeTexture),
-            Entity(675, 350, spikeTexture)
+            Entity(675, 350, spikeTexture),
+            Entity(300, 325, spikeTexture),
+            Entity(250, 350, spikeTexture)
     };
     return spike_entities;
 }
