@@ -26,7 +26,7 @@ private:
     double accelerator2 = 0;
     double lastJump = 0;
     double jumpTimer;
-    double jumpHeight = -30;
+    double jumpHeight = -15;
     double gravityTimer;
     double deltaTimer;
 

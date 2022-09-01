@@ -93,7 +93,7 @@ void Player::Gravity() {
 //        accelerator1 = accelerator1 + 0.03;
 //        accelerator2 = accelerator2 + 0.1;
 //        jumpHeight = jumpHeight + GRAVITY;
-        newY = getHitbox()->y + jumpHeight * gravityTimer + 5 * pow(gravityTimer, 2) * GRAVITY;
+        newY = getHitbox()->y + jumpHeight * gravityTimer + 5 * pow(gravityTimer, 2) * GRAVITY - 3;
         updateHitboxPos(tmp_x,  newY);
         if (tmp_dest < newY) {
             jumping = false;
@@ -103,7 +103,7 @@ void Player::Gravity() {
     } else {
 //        accelerator1 = accelerator1 + 0.09;
 //        accelerator2 = accelerator2 + 0.09;
-        double velocity = GRAVITY * gravityTimer;
+        double velocity = GRAVITY * gravityTimer + 2;
         newY = getHitbox()->y + GRAVITY * pow(gravityTimer, 2) + velocity;
         updateHitboxPos(tmp_x, newY);
         if(newY > 351){

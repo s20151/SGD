@@ -37,18 +37,18 @@ std::vector<Entity> loadFloor() {
 
 std::vector<Entity> loadSikes() {
     std::vector<Entity> spike_entities = {
-//            Entity(100, 350, spikeTexture),
-//            Entity(125, 350, spikeTexture),
-//            Entity(150, 350, spikeTexture),
-//            Entity(225, 350, spikeTexture),
-//            Entity(350, 350, spikeTexture),
-//            Entity(375, 350, spikeTexture),
-//            Entity(450, 350, spikeTexture),
-//            Entity(525, 350, spikeTexture),
-//            Entity(550, 350, spikeTexture),
-//            Entity(575, 350, spikeTexture),
-//            Entity(650, 350, spikeTexture),
-//            Entity(675, 350, spikeTexture)
+            Entity(100, 350, spikeTexture),
+            Entity(125, 350, spikeTexture),
+            Entity(150, 350, spikeTexture),
+            Entity(225, 350, spikeTexture),
+            Entity(350, 350, spikeTexture),
+            Entity(375, 350, spikeTexture),
+            Entity(450, 350, spikeTexture),
+            Entity(525, 350, spikeTexture),
+            Entity(550, 350, spikeTexture),
+            Entity(575, 350, spikeTexture),
+            Entity(650, 350, spikeTexture),
+            Entity(675, 350, spikeTexture)
     };
     return spike_entities;
 }
