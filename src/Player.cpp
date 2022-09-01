@@ -92,7 +92,7 @@ void Player::Gravity() {
         updateCurrentFrame(tmp_x , getCurrentFrame()->y + GRAVITY + accelerator1 + accelerator2 + jumpHeight);
         if (jumpHeight > 0) {
             jumping = false;
-            jumpHeight = -30;
+            jumpHeight = -25;
         }
     }
     else {

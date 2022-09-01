@@ -61,10 +61,7 @@ Entity win = Entity(250, 200, winTexture);
 bool gameRunning = true;
 SDL_Event event;
 
-Uint64 currentTick = SDL_GetPerformanceCounter();
-Uint64 lastTick = 0;
 double deltaTime = 0;
-Uint64 jumpTick;
 
 bool moveRight = false;
 bool moveLeft = false;
@@ -97,26 +94,6 @@ void Event() {
         }
     }
 }
-//
-//    while (SDL_PollEvent(&event)) {
-//        switch(event.type) {
-//            case SDL_QUIT:
-//                gameRunning = false;
-//                break;
-//            case SDL_KEYDOWN:
-//                if (event.key.keysym.sym == SDLK_RIGHT) {
-//                    moveRight = true;
-//
-//                } else if(event.key.keysym.sym == SDLK_LEFT){
-//                    moveLeft = true;
-//
-//                } else if(event.key.keysym.sym == SDLK_SPACE){
-//                    jump = true;
-//                    player.GetJumpTime();
-//                }
-//                break;
-//        }
-//    }
 
 
 void Update() {
