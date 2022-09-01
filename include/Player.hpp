@@ -13,7 +13,11 @@ public:
     bool getStanding();
     void SetJumpTime();
     void Jump();
+    void Jump2();
     void Gravity();
+    void Gravity2();
+
+    void SetDeltaTime();
 
 private:
     bool jumping = false;
@@ -22,6 +26,10 @@ private:
     double accelerator2 = 0;
     double lastJump = 0;
     double jumpTimer;
-    double jumpHeight = -25;
+    double jumpHeight = -30;
+    double gravityTimer;
+    double deltaTimer;
 
+    void SetGravityTime();
 };
+

@@ -100,6 +100,7 @@ void Event() {
 
 
 void Update() {
+    player.SetDeltaTime();
     std::cout << player.getHitbox()->x;
     std::cout << " ";
     std::cout << player.getHitbox()->y << std::endl;

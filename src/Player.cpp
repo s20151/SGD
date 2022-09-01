@@ -2,8 +2,9 @@
 #include <SDL_events.h>
 #include <vector>
 #include "../include/Player.hpp"
+#include <cmath>
 
-const double GRAVITY = 2.2;
+const double GRAVITY = 10;
 double tmp_x;
 
 Player::Player(double p_x, double p_y, SDL_Texture *texture)
@@ -31,16 +32,24 @@ void Player::updateMovement(double deltaTime, bool moveLeft, bool moveRight, boo
     } else {
         Gravity();
         if (getHitbox()->y >= 351) {
-            accelerator1 = 0;
-            accelerator2 = 0;
+//            accelerator1 = 0;
+//            accelerator2 = 0;
             standing = true;
         }
     }
     // after touching floor disable gravity/jump
     for (Entity f: floor) {
         if (SDL_HasIntersection(getHitbox(), f.getHitbox())) {
-            standing = true;
-            updateHitboxPos(getHitbox()->x, f.getHitbox()->y-25);
+            if(f.getHitbox()->y > getHitbox()->y){
+                standing = true;
+                updateHitboxPos(getHitbox()->x, f.getHitbox()->y-25);
+            } else if(f.getHitbox()->y < getHitbox()->y){
+                updateHitboxPos(getHitbox()->x, f.getHitbox()->y+25);
+            } else if (f.getHitbox()->x > getHitbox()->x){
+                updateHitboxPos(getHitbox()->x-25, f.getHitbox()->y);
+            } else if (f.getHitbox()->x < getHitbox()->x){
+                updateHitboxPos(getHitbox()->x+25, f.getHitbox()->y);
+            }
         }
     }
     // after touching spike kill and return to spawn
@@ -63,34 +72,54 @@ bool Player::getStanding() {
     return standing;
 }
 
-void Player::SetJumpTime() {
-    jumpTimer = SDL_GetTicks();
+void Player::SetJumpTime() { // pdt
+    jumpTimer = deltaTimer;
+}
+
+void Player::SetGravityTime() { //fdt
+    gravityTimer = (deltaTimer - jumpTimer)/1000;
+}
+
+void Player::SetDeltaTime() { //dt
+    deltaTimer = SDL_GetTicks();
 }
 
 void Player::Gravity() {
 
-    SetJumpTime();
-
+    SetGravityTime();
+    double newY;
     if (getJumping()) {
-        accelerator1 = accelerator1 + 0.03;
-        accelerator2 = accelerator2 + 0.1;
-        jumpHeight = jumpHeight + GRAVITY;
-        updateHitboxPos(tmp_x, getHitbox()->y + GRAVITY + accelerator1 + accelerator2 + jumpHeight);
-        if (jumpHeight > 0) {
+        double tmp_dest = getHitbox()->y;
+//        accelerator1 = accelerator1 + 0.03;
+//        accelerator2 = accelerator2 + 0.1;
+//        jumpHeight = jumpHeight + GRAVITY;
+        newY = getHitbox()->y + jumpHeight * gravityTimer + 5 * pow(gravityTimer, 2) * GRAVITY;
+        updateHitboxPos(tmp_x,  newY);
+        if (tmp_dest < newY) {
             jumping = false;
-            jumpHeight = -25;
+            SetJumpTime();
+//            jumpHeight = -25;
         }
     } else {
-        accelerator1 = accelerator1 + 0.09;
-        accelerator2 = accelerator2 + 0.09;
-        updateHitboxPos(tmp_x, getHitbox()->y + GRAVITY + accelerator1 + accelerator2);
+//        accelerator1 = accelerator1 + 0.09;
+//        accelerator2 = accelerator2 + 0.09;
+        double velocity = GRAVITY * gravityTimer;
+        newY = getHitbox()->y + GRAVITY * pow(gravityTimer, 2) + velocity;
+        updateHitboxPos(tmp_x, newY);
+        if(newY > 351){
+            velocity = 0;
+            updateHitboxPos(tmp_x, 351);
+        }
     }
 }
 
 void Player::Jump() {
+
+    SetJumpTime();
+
     if (jumpTimer - lastJump > 180) {
-        accelerator1 = 0;
-        accelerator2 = 0;
+//        accelerator1 = 0;
+//        accelerator2 = 0;
         jumping = true;
         lastJump = jumpTimer;
     } else {
