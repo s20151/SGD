@@ -82,7 +82,6 @@ void Event() {
             moveLeft = true;
         } if (event.key.keysym.sym == SDLK_SPACE) {
             jump = true;
-            player.GetJumpTime();
         }
     } else if(event.type == SDL_KEYUP){
         if (event.key.keysym.sym == SDLK_RIGHT) {

@@ -64,13 +64,6 @@ void Player::update(double deltaTime, bool moveLeft, bool moveRight, bool jump,
     }
 }
 
-void Player::setAccelerating(bool new_accelerating) {
-    jumping = new_accelerating;
-}
-
-bool Player::setJumping(bool new_jumping) {
-    jumping = new_jumping;
-}
 
 bool Player::getJumping() {
     return jumping;
@@ -85,6 +78,9 @@ void Player::GetJumpTime() {
 }
 
 void Player::Gravity() {
+
+    GetJumpTime();
+
     if (getJumping()) {
         accelerator1 = accelerator1 + 0.03;
         accelerator2 = accelerator2 + 0.1;

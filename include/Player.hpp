@@ -23,7 +23,5 @@ private:
     double lastJump = 0;
     double jumpTimer;
     double jumpHeight = -25;
-    void setAccelerating(bool new_accelerating);
-    bool setJumping(bool new_jumping);
 
 };
