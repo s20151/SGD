@@ -10,7 +10,7 @@ Player::Player(double p_x, double p_y, SDL_Texture *texture)
         : Entity{p_x, p_y, texture} {
 }
 
-void Player::update(double deltaTime, bool moveLeft, bool moveRight, bool jump,
+void Player::updateMovement(double deltaTime, bool moveLeft, bool moveRight, bool jump,
                     std::vector<Entity> floor, std::vector<Entity> spikes) {
     if (getHitbox()->x < 0) { updateHitboxPos(0, getHitbox()->y); }
     if (getHitbox()->x > 775) { updateHitboxPos(775, getHitbox()->y); }
@@ -31,16 +31,16 @@ void Player::update(double deltaTime, bool moveLeft, bool moveRight, bool jump,
     } else {
         Gravity();
         if (getHitbox()->y >= 351) {
-            updateHitboxPos(getHitbox()->x, 351);
+            accelerator1 = 0;
+            accelerator2 = 0;
             standing = true;
         }
-
     }
     // after touching floor disable gravity/jump
     for (Entity f: floor) {
         if (SDL_HasIntersection(getHitbox(), f.getHitbox())) {
             standing = true;
-            updateHitboxPos(getHitbox()->x, 351);
+            updateHitboxPos(getHitbox()->x, f.getHitbox()->y-25);
         }
     }
     // after touching spike kill and return to spawn

@@ -7,7 +7,7 @@ class Player : public Entity {
 
 public:
     Player(double p_x, double p_y, SDL_Texture* texture);
-    void update(double deltaTime, bool moveLeft, bool moveRight, bool jump, std::vector<Entity> floor,
+    void updateMovement(double deltaTime, bool moveLeft, bool moveRight, bool jump, std::vector<Entity> floor,
                 std::vector<Entity> spikes);
     bool getJumping();
     bool getStanding();

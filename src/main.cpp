@@ -78,17 +78,21 @@ void Event() {
     if (event.type == SDL_KEYDOWN) {
         if (event.key.keysym.sym == SDLK_RIGHT) {
             moveRight = true;
-        } if (event.key.keysym.sym == SDLK_LEFT) {
+        }
+        if (event.key.keysym.sym == SDLK_LEFT) {
             moveLeft = true;
-        } if (event.key.keysym.sym == SDLK_SPACE) {
+        }
+        if (event.key.keysym.sym == SDLK_SPACE) {
             jump = true;
         }
-    } else if(event.type == SDL_KEYUP){
+    } else if (event.type == SDL_KEYUP) {
         if (event.key.keysym.sym == SDLK_RIGHT) {
             moveRight = false;
-        } if (event.key.keysym.sym == SDLK_LEFT) {
+        }
+        if (event.key.keysym.sym == SDLK_LEFT) {
             moveLeft = false;
-        }if (event.key.keysym.sym == SDLK_SPACE) {
+        }
+        if (event.key.keysym.sym == SDLK_SPACE) {
             jump = false;
         }
     }
@@ -101,7 +105,7 @@ void Update() {
     std::cout << player.getHitbox()->y << std::endl;
     if (player.getHitbox()->x > 725) playerWon = true;
     if (!playerWon) {
-        player.update(deltaTime, moveLeft, moveRight, jump, floor, spikes);
+        player.updateMovement(deltaTime, moveLeft, moveRight, jump, floor, spikes);
     }
 }
 
