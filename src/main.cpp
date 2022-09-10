@@ -96,10 +96,12 @@ void Event() {
     } else if (event.type == SDL_KEYUP) {
         if (event.key.keysym.sym == SDLK_RIGHT) {
             moveRight = false;
+            player.SetSlowing(true);
             player.setAcceleration(0);
         }
         if (event.key.keysym.sym == SDLK_LEFT) {
             moveLeft = false;
+            player.SetSlowing(true);
             player.setAcceleration(0);
         }
         if (event.key.keysym.sym == SDLK_SPACE) {
@@ -114,11 +116,11 @@ void Update() {
     LAST = NOW;
     NOW = SDL_GetPerformanceCounter();
     deltaTime = (double)((NOW - LAST)*1000 / (double)SDL_GetPerformanceFrequency() );
-//    std::cout << player.getHitbox()->x;
-//    std::cout << " ";
-//    std::cout << player.getHitbox()->y << std::endl;
-//    std::cout << "delta time: ";
-//    std::cout << deltaTime << std::endl;
+    std::cout << player.getHitbox()->x;
+    std::cout << " ";
+    std::cout << player.getHitbox()->y << std::endl;
+    std::cout << "delta time: ";
+    std::cout << deltaTime << std::endl;
     if (player.getHitbox()->x > 725) playerWon = true;
     if (!playerWon) {
         player.updateMovement(deltaTime, moveLeft, moveRight, jump, floor, spikes);

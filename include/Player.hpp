@@ -14,6 +14,7 @@ public:
     void SetJumpTime();
     void Jump();
     void Jump2();
+    void SetSlowing(bool x);
     void Gravity();
     void Gravity2();
     int deathCounter = 0;
@@ -21,6 +22,7 @@ public:
     void SetDeltaTime();
 
 private:
+    bool slowing = false;
     bool jumping = false;
     bool standing = true;
     double accelerator1 = 0;
