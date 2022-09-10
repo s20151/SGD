@@ -17,6 +17,7 @@ public:
     void Gravity();
     void Gravity2();
     int deathCounter = 0;
+    void setAcceleration(double acceleration_n);
     void SetDeltaTime();
 
 private:
@@ -29,7 +30,8 @@ private:
     double jumpHeight = -8;
     double gravityTimer;
     double deltaTimer;
-
+    double acceleration = 0;
+    double speed = 4;
     void SetGravityTime();
 };
 

@@ -3,6 +3,7 @@
 #include <vector>
 #include "../include/Player.hpp"
 #include <cmath>
+#include <iostream>
 
 const double GRAVITY = 10;
 double tmp_x;
@@ -16,15 +17,21 @@ void Player::updateMovement(double deltaTime, bool moveLeft, bool moveRight, boo
     if (getHitbox()->x < 0) { updateHitboxPos(0, getHitbox()->y); }
     if (getHitbox()->x > 775) { updateHitboxPos(775, getHitbox()->y); }
     tmp_x = getHitbox()->x;
-    double decceleration = 0.3;
+
     if (moveRight) {
-        tmp_x = getHitbox()->x + 5;
+        acceleration += 0.1;
+        tmp_x = getHitbox()->x + speed + acceleration;
+    } else if (!moveRight) {
+//        acceleration = 0;
     }
 
     if (moveLeft) {
-        tmp_x = getHitbox()->x - 5;
+        acceleration -= 0.1;
+        tmp_x = getHitbox()->x - speed + acceleration;
+    } else if (!moveLeft) {
+//        acceleration = 0;
     }
-
+    std::cout << acceleration << std::endl;
     if (jump && standing) {
         standing = false;
         jumping = true;
@@ -67,7 +74,9 @@ void Player::updateMovement(double deltaTime, bool moveLeft, bool moveRight, boo
 bool Player::getJumping() {
     return jumping;
 }
-
+void Player::setAcceleration(double acceleration_n) {
+    acceleration = acceleration_n;
+}
 bool Player::getStanding() {
     return standing;
 }
@@ -89,13 +98,13 @@ void Player::Gravity() {
     SetGravityTime();
     double newY;
     if (getJumping()) {
-        double tmp_dest = getHitbox()->y;
+        double tmp = getHitbox()->y;
 //        accelerator1 = accelerator1 + 0.03;
 //        accelerator2 = accelerator2 + 0.1;
 //        jumpHeight = jumpHeight + GRAVITY;
         newY = getHitbox()->y + jumpHeight * gravityTimer + 5 * pow(gravityTimer, 2) * GRAVITY - 4;
         updateHitboxPos(tmp_x,  newY);
-        if (tmp_dest < newY) {
+        if (tmp < newY) {
             jumping = false;
             SetJumpTime();
 //            jumpHeight = -25;

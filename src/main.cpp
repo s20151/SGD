@@ -40,20 +40,20 @@ std::vector<Entity> loadFloor() {
 
 std::vector<Entity> loadSikes() {
     std::vector<Entity> spike_entities = {
-            Entity(100, 350, spikeTexture),
-            Entity(125, 350, spikeTexture),
-            Entity(150, 350, spikeTexture),
-            Entity(225, 350, spikeTexture),
-            Entity(350, 350, spikeTexture),
-            Entity(375, 350, spikeTexture),
-            Entity(450, 350, spikeTexture),
-            Entity(525, 350, spikeTexture),
-            Entity(550, 350, spikeTexture),
-            Entity(575, 350, spikeTexture),
-            Entity(650, 350, spikeTexture),
-            Entity(675, 350, spikeTexture),
-            Entity(300, 325, spikeTexture),
-            Entity(250, 350, spikeTexture)
+//            Entity(100, 350, spikeTexture),
+//            Entity(125, 350, spikeTexture),
+//            Entity(150, 350, spikeTexture),
+//            Entity(225, 350, spikeTexture),
+//            Entity(350, 350, spikeTexture),
+//            Entity(375, 350, spikeTexture),
+//            Entity(450, 350, spikeTexture),
+//            Entity(525, 350, spikeTexture),
+//            Entity(550, 350, spikeTexture),
+//            Entity(575, 350, spikeTexture),
+//            Entity(650, 350, spikeTexture),
+//            Entity(675, 350, spikeTexture),
+//            Entity(300, 325, spikeTexture),
+//            Entity(250, 350, spikeTexture)
     };
     return spike_entities;
 }
@@ -65,6 +65,9 @@ Entity win = Entity(250, 200, winTexture);
 
 bool gameRunning = true;
 SDL_Event event;
+
+Uint64 NOW = SDL_GetPerformanceCounter();
+Uint64 LAST = 0;
 
 double deltaTime = 0;
 
@@ -93,9 +96,11 @@ void Event() {
     } else if (event.type == SDL_KEYUP) {
         if (event.key.keysym.sym == SDLK_RIGHT) {
             moveRight = false;
+            player.setAcceleration(0);
         }
         if (event.key.keysym.sym == SDLK_LEFT) {
             moveLeft = false;
+            player.setAcceleration(0);
         }
         if (event.key.keysym.sym == SDLK_SPACE) {
             jump = false;
@@ -106,9 +111,14 @@ void Event() {
 
 void Update() {
     player.SetDeltaTime();
-    std::cout << player.getHitbox()->x;
-    std::cout << " ";
-    std::cout << player.getHitbox()->y << std::endl;
+    LAST = NOW;
+    NOW = SDL_GetPerformanceCounter();
+    deltaTime = (double)((NOW - LAST)*1000 / (double)SDL_GetPerformanceFrequency() );
+//    std::cout << player.getHitbox()->x;
+//    std::cout << " ";
+//    std::cout << player.getHitbox()->y << std::endl;
+//    std::cout << "delta time: ";
+//    std::cout << deltaTime << std::endl;
     if (player.getHitbox()->x > 725) playerWon = true;
     if (!playerWon) {
         player.updateMovement(deltaTime, moveLeft, moveRight, jump, floor, spikes);
