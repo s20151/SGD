@@ -21,15 +21,11 @@ void Player::updateMovement(double deltaTime, bool moveLeft, bool moveRight, boo
     if (moveRight) {
         acceleration += 0.1;
         tmp_x = getHitbox()->x + speed + acceleration;
-    } else if (!moveRight) {
-//        acceleration = 0;
     }
 
     if (moveLeft) {
         acceleration -= 0.1;
         tmp_x = getHitbox()->x - speed + acceleration;
-    } else if (!moveLeft) {
-//        acceleration = 0;
     }
     std::cout << acceleration << std::endl;
     if (jump && standing) {
@@ -102,7 +98,7 @@ void Player::Gravity() {
 //        accelerator1 = accelerator1 + 0.03;
 //        accelerator2 = accelerator2 + 0.1;
 //        jumpHeight = jumpHeight + GRAVITY;
-        newY = getHitbox()->y + jumpHeight * gravityTimer + 5 * pow(gravityTimer, 2) * GRAVITY - 4;
+        newY = getHitbox()->y + jumpHeight * gravityTimer +  pow(gravityTimer, 2) * GRAVITY * 5 - 4;
         updateHitboxPos(tmp_x,  newY);
         if (tmp < newY) {
             jumping = false;
