@@ -29,17 +29,20 @@ void Player::updateMovement(double deltaTime, bool moveLeft, bool moveRight, boo
         tmp_x = getHitbox()->x - speed + acceleration;
     }
 
-//    if (slowing) {
-//        if (acceleration > 0)
-//            acceleration -= 0.1;
-//        else if (acceleration < 0)
-//            acceleration += 0.1;
-//        if (acceleration == 0.1 || acceleration == -0.1 ) {
-//            acceleration = 0;
-//            slowing = false;
-//        }
-//    }
+    if (slowing) {
+        if (acceleration < 0.11 || acceleration > -0.11) {
+            acceleration = 0;
+            slowing = false;
+        }
+        if (acceleration > 0) acceleration -= 0.1;
+        else if (acceleration < 0) acceleration += 0.1;
+
+        tmp_x = getHitbox()->x + acceleration;
+    }
     std::cout << acceleration << std::endl;
+
+
+
     if (jump && standing) {
         standing = false;
         jumping = true;
@@ -47,8 +50,6 @@ void Player::updateMovement(double deltaTime, bool moveLeft, bool moveRight, boo
     } else {
         Gravity();
         if (getHitbox()->y >= 351) {
-//            accelerator1 = 0;
-//            accelerator2 = 0;
             standing = true;
         }
     }
@@ -109,19 +110,13 @@ void Player::Gravity() {
     double newY;
     if (getJumping()) {
         double tmp = getHitbox()->y;
-//        accelerator1 = accelerator1 + 0.03;
-//        accelerator2 = accelerator2 + 0.1;
-//        jumpHeight = jumpHeight + GRAVITY;
         newY = getHitbox()->y + jumpHeight * gravityTimer + pow(gravityTimer, 2) * GRAVITY * 5 - 4;
         updateHitboxPos(tmp_x, newY);
         if (tmp < newY) {
             jumping = false;
             SetJumpTime();
-//            jumpHeight = -25;
         }
     } else {
-//        accelerator1 = accelerator1 + 0.09;
-//        accelerator2 = accelerator2 + 0.09;
         double velocity = GRAVITY * gravityTimer + 2;
         newY = getHitbox()->y + GRAVITY * pow(gravityTimer, 2) + velocity;
         updateHitboxPos(tmp_x, newY);
@@ -137,8 +132,6 @@ void Player::Jump() {
     SetJumpTime();
 
     if (jumpTimer - lastJump > 180) {
-//        accelerator1 = 0;
-//        accelerator2 = 0;
         jumping = true;
         lastJump = jumpTimer;
     } else {

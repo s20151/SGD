@@ -5,7 +5,7 @@
 #include "../include/Player.hpp"
 #include <iostream>
 #include <vector>
-
+#include <Windows.h>
 
 bool init() {
     if (SDL_Init(SDL_INIT_VIDEO) > 0)
@@ -110,6 +110,7 @@ void Event() {
     }
 }
 
+int level = 1;
 
 void Update() {
     player.SetDeltaTime();
@@ -119,9 +120,7 @@ void Update() {
     std::cout << player.getHitbox()->x;
     std::cout << " ";
     std::cout << player.getHitbox()->y << std::endl;
-    std::cout << "delta time: ";
-    std::cout << deltaTime << std::endl;
-    if (player.getHitbox()->x > 725) playerWon = true;
+    if (player.getHitbox()->x > 725) { level = 2; }
     if (!playerWon) {
         player.updateMovement(deltaTime, moveLeft, moveRight, jump, floor, spikes);
     }
